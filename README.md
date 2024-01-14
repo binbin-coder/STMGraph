@@ -1,5 +1,4 @@
-# SpatialG
-STMGraph
+# STMGraph
 
 Overview
  ![Image text](https://github.com/binbin-coder/SpatialG/blob/main/fig1.png)
