@@ -1,7 +1,6 @@
 import numpy as np
 import scipy.sparse as sp
 from .STMGraph import STMGraph
-from .STDGraph import STDGraph
 import tensorflow.compat.v1 as tf
 import pandas as pd
 import scanpy as sc
@@ -75,23 +74,14 @@ def train_STMGraph(adata, hidden_dims=[512,30], mask_ratio=0.5,noise=0.05, n_epo
     G_df['Cell2'] = G_df['Cell2'].map(cells_id_tran)
     G = sp.coo_matrix((np.ones(G_df.shape[0]), (G_df['Cell1'], G_df['Cell2'])), shape=(adata.n_obs, adata.n_obs))
     G_tf = prepare_graph_data(G)
-    if mask_ratio>0:
-        trainer = STMGraph(hidden_dims=[X.shape[1]] + hidden_dims,alpha = alpha,
+ 
+    trainer = STMGraph(hidden_dims=[X.shape[1]] + hidden_dims,alpha = alpha,
                     n_epochs=n_epochs, lr=lr, gradient_clipping=gradient_clipping, 
                     nonlinear=nonlinear,weight_decay=weight_decay, verbose=verbose, 
                     random_seed=random_seed)
 
-        trainer(G_tf, X, mask_ratio, noise)
-        embeddings, attentions, loss, ReX= trainer.infer(G_tf, X,mask_ratio=0,noise=0)
-        
-    else:
-        trainer = STDGraph(hidden_dims=[X.shape[1]] + hidden_dims,alpha = alpha,
-                    n_epochs=n_epochs, lr=lr, gradient_clipping=gradient_clipping,
-                    nonlinear=nonlinear,weight_decay=weight_decay, verbose=verbose,
-                    random_seed=random_seed)
-
-        trainer(G_tf, X, mask_ratio, noise)
-        embeddings, attentions, loss, ReX= trainer.infer(G_tf, X,mask_ratio=0,noise=0)
+    trainer(G_tf, X, mask_ratio, noise)
+    embeddings, attentions, loss, ReX= trainer.infer(G_tf, X,mask_ratio=0,noise=0)
     cell_reps = pd.DataFrame(embeddings)
     cell_reps.index = cells
 

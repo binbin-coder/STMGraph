@@ -72,7 +72,7 @@ class SMGATE():
         total_rows = tf.cast(total_rows, tf.int32)
         mask = tf.ones(total_rows, dtype=tf.float32)
         mask = tf.tensor_scatter_nd_update(mask, tf.expand_dims(drop_indices, axis=1), tf.zeros(num_drops))
-        masked_X = X * tf.expand_dims(mask, axis=1)  # broadcasting 将掩码应用到整个矩阵的每一行
+        masked_X = X * tf.expand_dims(mask, axis=1)  # 使用 broadcasting 将掩码应用到整个矩阵的每一行
         return masked_X
 
     def re_random_mask(self, X, num_drops):
@@ -82,7 +82,7 @@ class SMGATE():
         shuffle_indices = tf.random.shuffle(tf.range(total_rows))
         drop_indices = tf.gather(shuffle_indices, tf.range(num_drops), axis=0)
         mask = tf.tensor_scatter_nd_update(mask, tf.expand_dims(drop_indices, axis=1), tf.zeros(num_drops))
-        masked_X = X * tf.expand_dims(mask, axis=1)  # broadcasting 将掩码应用到整个矩阵的每一行
+        masked_X = X * tf.expand_dims(mask, axis=1)  # 使用 broadcasting 将掩码应用到整个矩阵的每一行
         masked_rows = tf.gather(masked_X, drop_indices)
         updated_rows = masked_rows + self.learnable_param2
         masked_X = tf.tensor_scatter_nd_update(masked_X, tf.expand_dims(drop_indices, axis=1), updated_rows)
@@ -143,7 +143,7 @@ class SMGATE():
         H_m0_drop = tf.gather(H_m0, drop_indices)
         H_m1_keep = tf.gather(H_m1, keep_indices)
         # H_m2_drop = tf.gather(H_m2, drop_indices)
-        features_loss = self.sce_loss(Xdrop, H_m0_drop,self.alpha) + self.sce_loss(Xkeep, H_m1_keep,self.alpha)
+        features_loss = self.sce_loss(Xdrop, H_m0_drop,self.alpha) + self.sce_loss(Xkeep, H_m1_keep,self.alpha)# + self.sce_loss(Xdrop, H_m2_drop)
         # Final node representations
         # The reconstruction loss of node features 
         # features_loss = tf.sqrt(tf.reduce_sum(tf.reduce_sum(tf.pow(X - X_, 2))))
@@ -160,7 +160,7 @@ class SMGATE():
         weight_decay_loss += tf.multiply(tf.nn.l2_loss(self.W[self.n_layers-1][0]), self.weight_decay, name='weight_loss_0')
         weight_decay_loss += tf.multiply(tf.nn.l2_loss(self.W[self.n_layers-1][1]), self.weight_decay, name='weight_loss_1')
         # weight_decay_loss += tf.multiply(tf.nn.l2_loss(self.v[self.n_layers-2]), self.weight_decay, name='weight_v_loss')
-        self.loss = features_loss + weight_decay_loss
+        self.loss = features_loss + weight_decay_loss# + 0.1*latent_loss
         self.Att_l = self.C
         return self.loss, self.H, self.Att_l, self.H_m0
 
