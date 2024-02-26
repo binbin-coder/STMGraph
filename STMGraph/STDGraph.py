@@ -8,7 +8,7 @@ class STDGraph():
 
     def __init__(self, hidden_dims, n_epochs=500, lr=0.0001,alpha=0.2,
                  gradient_clipping=5, nonlinear=True, weight_decay=0.0001, 
-                 verbose=True, random_seed=2023):
+                 verbose=True, random_seed=19):
         np.random.seed(random_seed)
         tf.set_random_seed(random_seed)
         self.loss_list = []
