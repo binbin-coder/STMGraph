@@ -156,7 +156,7 @@ def Stats_Spatial_Net(adata):
     plt.title('Number of Neighbors (Mean=%.2f)'%Mean_edge)
     ax.bar(plot_df.index, plot_df)
 
-def mclust_R(adata, num_cluster, modelNames='EEE', used_obsm='STMGraph', random_seed=19,dist=None):
+def mclust_R(adata, num_cluster, modelNames='EEE', used_obsm='STMGraph', random_seed=19, dist=None):
     """
     Clustering using the mclust algorithm.
     The parameters are the same as those in the R package mclust.

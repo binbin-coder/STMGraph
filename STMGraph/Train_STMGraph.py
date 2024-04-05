@@ -9,8 +9,7 @@ from scipy.sparse import issparse
 
 def train_STMGraph(adata, hidden_dims=[512,30], mask_ratio=0.5,noise=0.05, n_epochs=1000, lr=0.001, key_added='STMGraph',
                 gradient_clipping=5, nonlinear=True, weight_decay=0.0001,verbose=True, alpha=1,
-                random_seed=19, pre_labels=None, pre_resolution=0.2,
-                save_attention=False, save_loss=False, save_reconstrction=False):
+                random_seed=19, save_attention=False, save_loss=False, save_reconstrction=False):
     """
     Training graph attention auto-encoder.
 
@@ -34,10 +33,6 @@ def train_STMGraph(adata, hidden_dims=[512,30], mask_ratio=0.5,noise=0.05, n_epo
         If True, the nonlinear avtivation is performed.
     weight_decay
         Weight decay for AdamOptimizer.
-    pre_labels
-        The key in adata.obs for the manually designate the pre-clustering results. Only used when alpha>0.
-    pre_resolution
-        The resolution parameter of sc.tl.louvain for the pre-clustering. Only used when alpha>0 and per_labels==None.
     save_attention
         If True, the weights of the attention layers are saved in adata.uns['STAGATE_attention']
     save_loss
@@ -49,7 +44,8 @@ def train_STMGraph(adata, hidden_dims=[512,30], mask_ratio=0.5,noise=0.05, n_epo
     -------
     AnnData
     """
-
+    if mask_ratio < 0 or mask_ratio > 1 or noise<0 or noise > 1:
+        raise ValueError("mask_radio and noise value must be between 0 and 1 (inclusive).")
     tf.reset_default_graph()
     np.random.seed(random_seed)
     tf.set_random_seed(random_seed)
@@ -62,7 +58,7 @@ def train_STMGraph(adata, hidden_dims=[512,30], mask_ratio=0.5,noise=0.05, n_epo
         X = pd.DataFrame(adata_Vars.X.toarray()[:, ], index=adata_Vars.obs.index, columns=adata_Vars.var.index)
     else:
         X = pd.DataFrame(adata_Vars.X[:, ], index=adata_Vars.obs.index, columns=adata_Vars.var.index)
-    #X = pd.DataFrame(adata_Vars.X.toarray()[:, ], index=adata_Vars.obs.index, columns=adata_Vars.var.index)
+    # X = pd.DataFrame(adata_Vars.X.toarray()[:, ], index=adata_Vars.obs.index, columns=adata_Vars.var.index)
     if verbose:
         print('Size of Input: ', adata_Vars.shape)
     cells = np.array(X.index)
@@ -81,8 +77,8 @@ def train_STMGraph(adata, hidden_dims=[512,30], mask_ratio=0.5,noise=0.05, n_epo
                     nonlinear=nonlinear,weight_decay=weight_decay, verbose=verbose, 
                     random_seed=random_seed)
 
-        trainer(G_tf, X, mask_ratio, noise)
-        embeddings, attentions, loss, ReX= trainer.infer(G_tf, X,mask_ratio=0,noise=0)
+    # trainer(G_tf, X, mask_ratio, noise)
+    # embeddings, attentions, loss, ReX= trainer.infer(G_tf, X,mask_ratio=0,noise=0)
         
     else:
         trainer = STDGraph(hidden_dims=[X.shape[1]] + hidden_dims,alpha = alpha,
@@ -90,8 +86,8 @@ def train_STMGraph(adata, hidden_dims=[512,30], mask_ratio=0.5,noise=0.05, n_epo
                     nonlinear=nonlinear,weight_decay=weight_decay, verbose=verbose,
                     random_seed=random_seed)
 
-        trainer(G_tf, X, mask_ratio, noise)
-        embeddings, attentions, loss, ReX= trainer.infer(G_tf, X,mask_ratio=0,noise=0)
+    trainer(G_tf, X, mask_ratio, noise)
+    embeddings, attentions, loss, ReX= trainer.infer(G_tf, X, mask_ratio=0, noise=0)
     cell_reps = pd.DataFrame(embeddings)
     cell_reps.index = cells
 

@@ -19,56 +19,9 @@ class SDGATE():
         loss = tf.reduce_sum(loss)
         return loss
 
-    # 生成行屏蔽的掩码
-    def create_mask_matrix(self, X, drop_ratio=0.5,noise_ratio=0.1):
-        total_rows = tf.shape(X)[0]
-        total_rows = tf.cast(total_rows, tf.float32)
-
-        num_drops = tf.cast(total_rows * drop_ratio, tf.float32)  # 需要置零的行数
-        total_rows = tf.cast(total_rows, tf.int32)
-        indices = tf.random.shuffle(tf.range(total_rows))  # 随机打乱行索引
-        # 创建一个可学习的参数，形状与 drop_indices 的长度相同
-        # learnable_param = tf.Variable(tf.zeros((1,)), trainable=True, name="learnable_param")
-        
-        noise_num_drops = tf.cast(num_drops * noise_ratio, tf.float32)  # 需要置替换噪声的行数
-        token_num_drops = num_drops - noise_num_drops
-        noise_num_drops = tf.cast(noise_num_drops, tf.int32)
-        token_num_drops = tf.cast(token_num_drops, tf.int32)
-
-        num_drops = tf.cast(num_drops, tf.int32)
-        drop_indices = tf.gather(indices, tf.range(num_drops), axis=0)  # 选取需要置零的行的索引
-        shuffled_drop_indices = tf.random.shuffle(drop_indices)  # 随机打乱行索引
-        shuffled_indices = tf.random.shuffle(indices)  # 随机打乱行索引
-        token_indices = shuffled_drop_indices[:token_num_drops]
-        noise_indices = shuffled_drop_indices[-noise_num_drops:]
-        # 创建掩码
-        mask = tf.ones(total_rows, dtype=tf.float32)
-        mask = tf.tensor_scatter_nd_update(mask, tf.expand_dims(token_indices, axis=1), tf.zeros(token_num_drops))
-        # 对 X 矩阵进行屏蔽
-        masked_X = X * tf.expand_dims(mask, axis=1)  # 使用 broadcasting 将掩码应用到整个矩阵的每一行
-        # 获取需要替换噪声的行的索引
-        noise_indices_M = shuffled_indices[-noise_num_drops:]
-        # 从 X 矩阵中随机选择与 noise_indices 相同行数的行，并替换到 masked_X 中对应的行
-        selected_noise = tf.gather(X, noise_indices_M)
-        masked_X = tf.tensor_scatter_nd_update(masked_X, tf.expand_dims(noise_indices, axis=1), selected_noise)
-        masked_X = X * tf.expand_dims(mask, axis=1)  # 使用 broadcasting 将掩码应用到整个矩阵的每一行
-        masked_rows = tf.gather(masked_X, token_indices)
-        # 将 learnable_param 加到 masked_rows 中
-        updated_rows = masked_rows + tf.expand_dims(self.learnable_param, axis=1)
-        masked_X = tf.tensor_scatter_nd_update(masked_X, tf.expand_dims(token_indices, axis=1), updated_rows)
-        return masked_X, drop_indices, num_drops
-
-    def re_mask(self, X, drop_indices, num_drops):
-        total_rows = tf.shape(X)[0]
-        total_rows = tf.cast(total_rows, tf.int32)
-        mask = tf.ones(total_rows, dtype=tf.float32)
-        mask = tf.tensor_scatter_nd_update(mask, tf.expand_dims(drop_indices, axis=1), tf.zeros(num_drops))
-        masked_X = X * tf.expand_dims(mask, axis=1)  # 使用 broadcasting 将掩码应用到整个矩阵的每一行
-        return masked_X
-
     def __call__(self, A, X, mask_ratio, noise):
 
-        # H,drop_indices, num_drops=self.create_mask_matrix(X,drop_ratio=dropout,noise_ratio=noise)
+        H,drop_indices, num_drops=self.create_mask_matrix(X,drop_ratio=dropout,noise_ratio=noise)
         # Encoder
         H = X
         for layer in range(self.n_layers):
