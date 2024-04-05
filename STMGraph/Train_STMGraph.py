@@ -34,6 +34,10 @@ def train_STMGraph(adata, hidden_dims=[512,30], mask_ratio=0.5,noise=0.05, n_epo
         If True, the nonlinear avtivation is performed.
     weight_decay
         Weight decay for AdamOptimizer.
+    pre_labels
+        The key in adata.obs for the manually designate the pre-clustering results. Only used when alpha>0.
+    pre_resolution
+        The resolution parameter of sc.tl.louvain for the pre-clustering. Only used when alpha>0 and per_labels==None.
     save_attention
         If True, the weights of the attention layers are saved in adata.uns['STAGATE_attention']
     save_loss
