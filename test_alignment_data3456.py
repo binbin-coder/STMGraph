@@ -36,16 +36,17 @@ sc.pp.normalize_total(adata, target_sum=1e4)
 sc.pp.log1p(adata)
 
 # STMGraph.Cal_Spatial_Net(adata, rad_cutoff=150)
-STMGraph.Cal_Spatial_Net(adata, k_cutoff=int(k), model='KNN')
-STMGraph.Stats_Spatial_Net(adata)
+STMGraph.Cal_Spatial_3DNet(adata, k_cutoff=int(k), model='KNN')
+#STMGraph.Stats_Spatial_Net(adata)
 
 adata = STMGraph.train_STMGraph(adata, mask_ratio=0.5, n_epochs=1500, alpha=int(alpha), random_seed=int(r))
 
 # sc.pp.neighbors(adata, use_rep='STAGATE')
 # sc.tl.umap(adata)
 adata = STMGraph.mclust_R(adata, used_obsm='STMGraph', num_cluster=num_cluster,random_seed=int(r))
-sample_list=list(set(adata.obs['sample']))
-adata_list=[]
+
+sample_list = sorted(list(set(adata.obs['sample'])))
+adata_list = []
 for sample in sample_list:
     adata_list.append(adata[adata.obs['sample']==sample, :])
 
