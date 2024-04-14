@@ -21,7 +21,6 @@ class SDGATE():
 
     def __call__(self, A, X, mask_ratio, noise):
 
-        H,drop_indices, num_drops=self.create_mask_matrix(X,drop_ratio=dropout,noise_ratio=noise)
         # Encoder
         H = X
         for layer in range(self.n_layers):

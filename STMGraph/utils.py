@@ -63,6 +63,83 @@ def Cal_Spatial_Net(adata, rad_cutoff=None, k_cutoff=None, model='Radius', verbo
 
     adata.uns['Spatial_Net'] = Spatial_Net
 
+def group_in_order(sequence):
+    partitions = []
+    start_index = 0
+    
+    while start_index<len(sequence)-1:
+        partition = sequence[start_index:start_index+2]
+        partitions.append(partition)
+        start_index += 1
+    return partitions
+
+def Cal_Spatial_3DNet(adata, rad_cutoff=None, k_cutoff=None, model='Radius', verbose=True,delta_err=1):
+    """\
+    Construct the spatial neighbor networks.
+
+    Parameters
+    ----------
+    adata
+        AnnData object of scanpy package.
+    rad_cutoff
+        radius cutoff when model='Radius'
+    k_cutoff
+        The number of nearest neighbors when model='KNN'
+    model
+        The network construction model. When model=='Radius', the spot is connected to spots whose distance is less than rad_cutoff. When model=='KNN', the spot is connected to its first k_cutoff nearest neighbors.
+    
+    Returns
+    -------
+    The spatial networks are saved in adata.uns['Spatial_Net']
+    """
+
+    assert(model in ['Radius', 'KNN'])
+    if verbose:
+        print('------Calculating spatial graph...')
+    coor = pd.DataFrame(adata.obsm['spatial'])
+    coor.index = adata.obs.index
+    coor.columns = ['imagerow', 'imagecol']
+    assert 'data' in adata.obs or 'sample' in adata.obs, "Error: The 'data' or 'sample' column does not exist in adata.obs."
+    coor['sample'] = adata.obs.get('sample', default=adata.obs.get('data'))
+    sequence = sorted(list(set(coor['sample'])))
+    Spatial_Net_all = []
+    for i in group_in_order(sequence):
+        filiter_coor = coor[coor['sample'].isin(i)]
+        KNN_list = []
+        if model == 'Radius':
+            nbrs = sklearn.neighbors.NearestNeighbors(radius=rad_cutoff).fit(filiter_coor.iloc[:,:-1])
+            distances, indices = nbrs.radius_neighbors(filiter_coor.iloc[:,:-1], return_distance=True)
+            for it in range(indices.shape[0]):
+                KNN_list.append(pd.DataFrame(zip(it, x, distances[it][x])))
+
+        if model == 'KNN':
+            nbrs = sklearn.neighbors.NearestNeighbors(n_neighbors=k_cutoff+1).fit(filiter_coor.iloc[:,:-1])
+            distances, indices = nbrs.kneighbors(filiter_coor.iloc[:,:-1])
+            distance_threshold=np.sort(distances[:,-1])[0]
+            distance_threshold = distance_threshold+delta_err
+            for it in range(indices.shape[0]):
+                close_indices = indices[it, distances[it, :] <= distance_threshold]
+                close_distances = distances[it, distances[it, :] <= distance_threshold]
+                KNN_list.append(pd.DataFrame(zip([it]*len(close_indices), close_indices, close_distances)))
+    
+        KNN_df = pd.concat(KNN_list)
+
+        KNN_df.columns = ['Cell1', 'Cell2', 'Distance']
+        Spatial_Net = KNN_df.copy()
+        Spatial_Net = Spatial_Net.loc[Spatial_Net['Distance']>0,]
+        id_cell_trans = dict(zip(range(filiter_coor.shape[0]), np.array(filiter_coor.index), ))
+        Spatial_Net['Cell1'] = Spatial_Net['Cell1'].map(id_cell_trans)
+        Spatial_Net['Cell2'] = Spatial_Net['Cell2'].map(id_cell_trans)
+        
+        Spatial_Net_all.append(Spatial_Net)
+    Spatial_Net_all_df = pd.concat(Spatial_Net_all)
+    cleaned_KNN_df = Spatial_Net_all_df.drop_duplicates()
+    Spatial_Net = cleaned_KNN_df.copy()
+    if verbose:
+            print('The graph contains %d edges, %d cells.' %(Spatial_Net.shape[0], adata.n_obs))
+            print('%.4f neighbors per cell on average.' %(Spatial_Net.shape[0]/adata.n_obs))
+    adata.uns['Spatial_Net'] = Spatial_Net
+
 
 def Cal_Spatial_Net_3D(adata, rad_cutoff_2D, rad_cutoff_Zaxis,
                        key_section='Section_id', section_order=None, verbose=True):

@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="6d14ee08-c744-4cfe-9770-644e38253ca3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/STDGraph.py" beforeDir="false" afterPath="$PROJECT_DIR$/STDGraph.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/STMGraph.py" beforeDir="false" afterPath="$PROJECT_DIR$/STMGraph.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Train_STMGraph.py" beforeDir="false" afterPath="$PROJECT_DIR$/Train_STMGraph.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/calculate_moran_I.py" beforeDir="false" afterPath="$PROJECT_DIR$/calculate_moran_I.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model_or.py" beforeDir="false" afterPath="$PROJECT_DIR$/model_or.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
