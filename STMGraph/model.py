@@ -65,7 +65,7 @@ class SMGATE():
         updated_rows = masked_rows + self.learnable_param1
         # update tf.tensor_scatter_nd_add matrix to masked_X
         masked_X = tf.tensor_scatter_nd_update(masked_X, tf.expand_dims(token_indices, axis=1), updated_rows)
-        return masked_X, drop_indices, num_drops,keep_indices,num_keeps
+        return masked_X, drop_indices, num_drops ,keep_indices,num_keeps
 
     def re_mask(self, X, drop_indices, num_drops):
         total_rows = tf.shape(X)[0]

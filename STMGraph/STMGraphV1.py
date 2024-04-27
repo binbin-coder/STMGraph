@@ -1,12 +1,12 @@
 import tensorflow.compat.v1 as tf
 import scipy.sparse as sp
 import numpy as np
-from .model_or import SDGATE
+from .modelV1 import SMGATE
 from tqdm import tqdm
 
-class STDGraph():
+class STMGraph():
 
-    def __init__(self, hidden_dims, n_epochs=500, lr=0.0001,alpha=1,
+    def __init__(self, hidden_dims, n_epochs=500, lr=0.0001,alpha=0.2,
                  gradient_clipping=5, nonlinear=True, weight_decay=0.0001, 
                  verbose=True, random_seed=19):
         np.random.seed(random_seed)
@@ -17,8 +17,8 @@ class STDGraph():
         self.gradient_clipping = gradient_clipping
         self.build_placeholders()
         self.verbose = verbose
-        self.sdgate = SDGATE(hidden_dims, nonlinear, weight_decay, alpha)
-        self.loss, self.H, self.C, self.ReX = self.sdgate(self.A, self.X, self.mask_ratio, self.noise)
+        self.smgate = SMGATE(hidden_dims, nonlinear, weight_decay, alpha)
+        self.loss, self.H, self.C, self.ReX = self.smgate(self.A, self.X, self.mask_ratio, self.noise)
         self.optimize(self.loss)
         self.build_session()
         

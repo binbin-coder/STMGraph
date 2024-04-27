@@ -3,7 +3,7 @@ import tensorflow.compat.v1 as tf
 
 class SMGATE():
 
-    def __init__(self, hidden_dims, alpha=0.8, nonlinear=True, weight_decay=0.0001):
+    def __init__(self,hidden_dims,nonlinear=True, weight_decay=0.0001,alpha=1.0):
         self.n_layers = len(hidden_dims) - 1
         self.alpha = alpha
         self.W, self.v, self.learnable_param1, self.learnable_param2 = self.define_weights(hidden_dims)
@@ -21,7 +21,7 @@ class SMGATE():
         # loss = tf.reduce_sum(loss)
         return loss
 
-    # 生成行屏蔽的掩码
+    # Generate a mask for row masking
     def create_mask_matrix(self, X, drop_ratio=0.5, noise_ratio=0.05):
         noise_ratio = noise_ratio
         total_rows = tf.shape(X)[0]
@@ -37,10 +37,9 @@ class SMGATE():
         token_num_drops = num_drops - noise_num_drops
         token_num_drops = tf.cast(token_num_drops, tf.int32)
 
-        drop_indices = tf.gather(indices, tf.range(num_drops),
-                                 axis=0)  # Select the index of the row that needs to be zeroed
-        shuffled_drop_indices = tf.random.shuffle(drop_indices)
-        shuffled_indices = tf.random.shuffle(indices)
+        drop_indices = tf.gather(indices, tf.range(num_drops), axis=0)  # Select the index of the row that needs to be zeroed
+        shuffled_drop_indices = tf.random.shuffle(drop_indices)  # Randomly scramble row index
+        shuffled_indices = tf.random.shuffle(indices)  # Randomly scramble row index
         token_indices = shuffled_drop_indices[:token_num_drops]
 
         noise_indices = shuffled_drop_indices[token_num_drops:]
@@ -53,11 +52,10 @@ class SMGATE():
         mask = tf.ones(total_rows, dtype=tf.float32)
         mask = tf.tensor_scatter_nd_update(mask, tf.expand_dims(token_indices, axis=1), tf.zeros(token_num_drops))
         # Mask the X matrix
-        masked_X = X * tf.expand_dims(mask,
-                                      axis=1)  # Use broadcasting to apply the mask to each row of the entire matrix
+        masked_X = X * tf.expand_dims(mask, axis=1)  # Use broadcasting to apply the mask to each row of the entire matrix
         # Get replaced noise row
         noise_indices_M = shuffled_indices[:noise_num_drops]
-        # Random selection and noise from X matrix_ Indents lines with the
+        # Random selection and noise from X matrix_ Indents lines with the 
         # same number of lines and replaces them with masked_ Corresponding line in X
         selected_noise_M = tf.gather(X, noise_indices_M)
         # print(noise_num_drops, noise_indices_M, noise_indices)
@@ -76,7 +74,7 @@ class SMGATE():
         total_rows = tf.cast(total_rows, tf.int32)
         mask = tf.ones(total_rows, dtype=tf.float32)
         mask = tf.tensor_scatter_nd_update(mask, tf.expand_dims(drop_indices, axis=1), tf.zeros(num_drops))
-        masked_X = X * tf.expand_dims(mask, axis=1)  # 使用 broadcasting 将掩码应用到整个矩阵的每一行
+        masked_X = X * tf.expand_dims(mask, axis=1)  # Apply a mask to every row of the entire matrix using broadcasting
         return masked_X
 
     def re_random_mask(self, X, num_drops):
@@ -93,6 +91,13 @@ class SMGATE():
         return masked_X
 
     def __call__(self, A, X, dropout, noise):
+        # HH = X
+        # for layer in range(self.n_layers):
+        #    HH = self.__encoder(A, HH, layer)
+        #    if self.nonlinear:
+        #        if layer != self.n_layers - 1:
+        #            HH = tf.nn.elu(HH)
+        # self.HH = HH
         H_r, drop_indices, num_drops, keep_indices, num_keeps = self.create_mask_matrix(X, drop_ratio=dropout,
                                                                                         noise_ratio=noise)
         # Encoder
@@ -141,13 +146,15 @@ class SMGATE():
         H_m0_drop = tf.gather(H_m0, drop_indices)
         H_m1_keep = tf.gather(H_m1, keep_indices)
         # H_m2_drop = tf.gather(H_m2, drop_indices)
-        features_loss = self.sce_loss(Xdrop, H_m0_drop) + self.sce_loss(Xkeep,
-                                                                        H_m1_keep)  # + self.sce_loss(Xdrop, H_m2_drop)
+        features_loss = self.sce_loss(Xdrop, H_m0_drop, self.alpha) + self.sce_loss(Xkeep, H_m1_keep, self.alpha)
+        
         # Final node representations
         # The reconstruction loss of node features
         # features_loss = tf.sqrt(tf.reduce_sum(tf.reduce_sum(tf.pow(X - X_, 2))))
         weight_decay_loss = 0
-
+        # for layer in range(self.n_layers):
+        #    weight_decay_loss += tf.multiply(tf.nn.l2_loss(self.W[layer][0]), self.weight_decay, name='weight_loss_0')
+        #    weight_decay_loss += tf.multiply(tf.nn.l2_loss(self.W[layer][1]), self.weight_decay, name='weight_loss_1')
         # Total loss
         weight_decay_loss += tf.multiply(tf.nn.l2_loss(self.W[self.n_layers - 1][0]), self.weight_decay,
                                          name='weight_loss_0')

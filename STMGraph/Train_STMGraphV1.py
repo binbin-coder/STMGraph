@@ -1,13 +1,13 @@
 import numpy as np
 import scipy.sparse as sp
-from .STMGraph import STMGraph
-from .STDGraph import STDGraph
+from .STMGraphV1 import STMGraph
+from .STGraphV1 import STGraph
 import tensorflow.compat.v1 as tf
 import pandas as pd
 import scanpy as sc
 from scipy.sparse import issparse
 
-def train_STMGraph(adata, hidden_dims=[512,30], mask_ratio=0.5,noise=0.05, n_epochs=1000, lr=0.001, key_added='STMGraph',
+def train_STMGraphV1(adata, hidden_dims=[512,30], mask_ratio=0.5,noise=0.05, n_epochs=1000, lr=0.001, key_added='STMGraph',
                 gradient_clipping=5, nonlinear=True, weight_decay=0.0001,verbose=True, alpha=1,
                 random_seed=19, save_attention=False, save_loss=False, save_reconstrction=False):
     """
@@ -81,7 +81,7 @@ def train_STMGraph(adata, hidden_dims=[512,30], mask_ratio=0.5,noise=0.05, n_epo
     # embeddings, attentions, loss, ReX= trainer.infer(G_tf, X,mask_ratio=0,noise=0)
         
     else:
-        trainer = STDGraph(hidden_dims=[X.shape[1]] + hidden_dims,alpha = alpha,
+        trainer = STGraph(hidden_dims=[X.shape[1]] + hidden_dims,alpha = alpha,
                     n_epochs=n_epochs, lr=lr, gradient_clipping=gradient_clipping,
                     nonlinear=nonlinear,weight_decay=weight_decay, verbose=verbose,
                     random_seed=random_seed)

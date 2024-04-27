@@ -2,7 +2,7 @@ import tensorflow.compat.v1 as tf
 
 class SDGATE():
 
-    def __init__(self, hidden_dims, alpha=0.8, nonlinear=True, weight_decay=0.0001):
+    def __init__(self,hidden_dims,nonlinear=True, weight_decay=0.0001,alpha=1.0):
         self.n_layers = len(hidden_dims) - 1
         self.alpha = alpha
         self.W, self.v,self.learnable_param = self.define_weights(hidden_dims)
@@ -15,13 +15,12 @@ class SDGATE():
         y = tf.math.l2_normalize(y, axis=-1)
 
         loss = tf.pow(1 - tf.reduce_sum(tf.multiply(x, y), axis=-1), alpha)
-        # loss = tf.reduce_mean(loss)
-        loss = tf.reduce_sum(loss)
+        loss = tf.reduce_mean(loss)
+        # loss = tf.reduce_sum(loss)
         return loss
 
     def __call__(self, A, X, mask_ratio, noise):
 
-        # Encoder
         H = X
         for layer in range(self.n_layers):
             H = self.__encoder(A, H, layer)
@@ -47,11 +46,11 @@ class SDGATE():
         # Final node representations
         #self.H1 = H1
         # The reconstruction loss of node features 
-        features_loss = tf.sqrt(tf.reduce_sum(tf.reduce_sum(tf.pow(X - X_, 2))))
+        # features_loss = tf.sqrt(tf.reduce_sum(tf.reduce_sum(tf.pow(X - X_, 2))))
 
         #Xdrop = tf.gather(X, drop_indices)
         #X_drop = tf.gather(X_, drop_indices)
-        # features_loss = self.sce_loss(X, X_)
+        features_loss = self.sce_loss(X, X_, self.alpha)
         # for layer in range(self.n_layers):
         weight_decay_loss = 0
         # for layer in range(self.n_layers):    
