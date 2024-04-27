@@ -11,3 +11,6 @@ r-mclust==5.4.6
 rpy2==3.1.0  
 tensorflow==1.15.0  
 scanpy==1.9.1
+
+## Installation
+conda env create -f environment.yaml
