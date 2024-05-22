@@ -6,7 +6,7 @@
 """
 
 __author__ = "Lixian Lin"
-__email__ = "1060203952@qq.com"
+__email__ = "llx_1910@163.com"
 
 from .Train_STMGraph import train_STMGraph
 from .Train_STMGraphV1 import train_STMGraphV1
