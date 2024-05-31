@@ -192,7 +192,7 @@ class SMGATE():
             # f1 = tf.matmul(M, v)
 
             # f1 = A * f1
-            f1 = A * tf.matmul(tf.nn.sigmoid(M),v)
+            f1 = A * tf.transpose(tf.matmul(tf.nn.sigmoid(M),v),[1, 0])
             unnormalized_attentions1 = tf.SparseTensor(indices=f1.indices,
                                                        values=f1.values,
                                                        dense_shape=f1.dense_shape)
