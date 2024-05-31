@@ -9,7 +9,7 @@ from scipy.sparse import issparse
 
 def train_STMGraph(adata, hidden_dims=[512,30], mask_ratio=0.5,noise=0.05, n_epochs=1000, lr=0.001, key_added='STMGraph',
                 gradient_clipping=5, nonlinear=True, weight_decay=0.0001,verbose=True, alpha=1,
-                random_seed=19, save_attention=False, save_loss=False, save_reconstrction=False):
+                random_seed=52, save_attention=False, save_loss=False, save_reconstrction=False):
     """
     Training graph attention auto-encoder.
 
