@@ -8,7 +8,7 @@ class STMGraph():
 
     def __init__(self, hidden_dims, n_epochs=500, lr=0.001,alpha=1,
                  gradient_clipping=5, nonlinear=True, weight_decay=0.0001, 
-                 verbose=True, random_seed=2023):
+                 verbose=True, random_seed=52):
         np.random.seed(random_seed)
         tf.set_random_seed(random_seed)
         self.loss_list = []
