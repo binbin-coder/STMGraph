@@ -101,8 +101,8 @@ class SDGATE():
 
     def graph_attention_layer(self, A, M, v, layer):
         with tf.variable_scope("layer_%s" % layer):
-            f1 = tf.matmul(M, v)
-
+            # f1 = tf.matmul(M, v)
+            f1 = tf.transpose(tf.matmul(tf.nn.sigmoid(M),v),[1, 0])
             f1 = A * f1
             unnormalized_attentions1 = tf.SparseTensor(indices=f1.indices,
                                                        values=tf.nn.sigmoid(f1.values),
