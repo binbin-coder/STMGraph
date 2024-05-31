@@ -79,11 +79,11 @@ class SDGATE():
         # H2 = tf.add(tf.matmul(H, self.W[layer][1], transpose_b=True),self.b_d0[layer-1][1])
         # else:
         H1 = tf.matmul(H, self.W[layer][0], transpose_b=True)
-        H2 = tf.matmul(H, self.W[layer][1], transpose_b=True)
-        H = tf.add(H1, H2)
+        # H2 = tf.matmul(H, self.W[layer][1], transpose_b=True)
+        # H = tf.add(H1, H2)
         if layer == 0:
-            return H
-        return tf.sparse_tensor_dense_matmul(self.C[layer - 1], H)
+            return H1
+        return tf.sparse_tensor_dense_matmul(self.C[layer - 1], H1)
 
     def define_weights(self, hidden_dims):
         W_d = {}
