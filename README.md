@@ -14,3 +14,4 @@ scanpy==1.9.1
 
 ## Installation
 conda env create -f environment.yaml
+pip install STMGraph
