@@ -13,5 +13,5 @@ tensorflow==1.15.0
 scanpy==1.9.1
 
 ## Installation
-conda env create -f environment.yaml
+conda env create -f environment.yaml  
 pip install STMGraph
