@@ -43,8 +43,8 @@ plt.close()
 
 plot_gene = 'B3GALT2'
 fig, axs = plt.subplots(1, 2, figsize=(12, 6))
-sc.pl.spatial(adata_151674, img_key="hires", color=plot_gene, show=False, ax=axs[0], title='RAW_'+plot_gene, vmax='p99')
-sc.pl.spatial(adata_151674, img_key="hires", color=plot_gene, show=False, ax=axs[1], title='STMGraph_'+plot_gene, layer='STMGraph_ReX', vmax='p99')
+sc.pl.spatial(adata, img_key="hires", color=plot_gene, show=False, ax=axs[0], title='RAW_'+plot_gene, vmax='p99')
+sc.pl.spatial(adata, img_key="hires", color=plot_gene, show=False, ax=axs[1], title='STMGraph_'+plot_gene, layer='STMGraph_ReX', vmax='p99')
 output_file2=output_file+'/'+input_dir.split('/')[-1]+'denoising'+'plot_gene'+'.png'
 plt.savefig(output_file2, dpi=300)
 plt.close()
