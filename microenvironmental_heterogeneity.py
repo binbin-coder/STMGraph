@@ -8,9 +8,9 @@ import STMGraph as STMGraph
 import argparse
 parser = argparse.ArgumentParser(description='manual to this script')
 parser.add_argument("--random-seed", type=int, default=52)
-parser.add_argument("--input-dir", type=str, default="/share/home/stu_qilin/project/jupyter/data/test_data/mouse_posterior_brain")
-parser.add_argument("--count-file", type=str, default="/share/home/stu_qilin/project/jupyter/data/test_data/mouse_posterior_brain/V1_Mouse_Brain_Sagittal_Posterior_filtered_feature_bc_matrix.h5")
-parser.add_argument("--output-file", type=str, default="/share/home/stu_qilin/software/STMGraph/mouse_posterior_brain/")
+parser.add_argument("--input-dir", type=str, default="/share/home/stu_qilin/software/stdata/Mouse_Brain_Section_1")
+parser.add_argument("--count-file", type=str, default="/share/home/stu_qilin/software/stdata/Mouse_Brain_Section_1/V1_Adult_Mouse_Brain_Coronal_Section_1_filtered_feature_bc_matrix.h5")
+parser.add_argument("--output-file", type=str, default="/share/home/stu_qilin/software/STMGraph/Mouse_Brain_Section_1/")
 args = parser.parse_args()
 
 r=args.random_seed
@@ -31,7 +31,7 @@ sc.pp.log1p(adata)
 
 STMGraph.Cal_Spatial_Net(adata,  k_cutoff=6, model='KNN')
 STMGraph.Stats_Spatial_Net(adata)
-adata = STMGraph.train_STMGraph(adata, mask_ratio=0.5, noise=0.0, alpha=1, random_seed=int(r), save_attention=True)
+adata = STMGraph.train_STMGraph(adata, mask_ratio=0.5,noise=0.05 alpha=1, random_seed=int(r), save_attention=True)
 
 import matplotlib as mpl
 import networkx as nx
