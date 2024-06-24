@@ -34,4 +34,3 @@ The datasets used in this paper can be downloaded from the following websites. S
 
 (3) 10x Visium spatial transcriptomics dataset of Orchid flower Slide 1 https://academic.oup.com/nar/article/50/17/9724/6696353#supplementary-data
 
-Additionally, the data employed in this study has been uploaded to Zenodo https://zenodo.org/records/10279295
