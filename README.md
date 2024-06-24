@@ -24,3 +24,14 @@ python test_alignment_data3456.py
 python microenvironmental_heterogeneity.py
 ## gene denoising
 python test_denoising.py
+
+## Download test datasets used in STMGraph:
+The datasets used in this paper can be downloaded from the following websites. Specifically,
+
+(1) The LIBD human dorsolateral prefrontal cortex (DLPFC) dataset http://spatial.libd.org/spatialLIBD
+
+(2) the processed Mouse posterior brain https://support.10xgenomics.com/spatial-gene-expression/datasets
+
+(3) 10x Visium spatial transcriptomics dataset of Orchid flower Slide 1 https://academic.oup.com/nar/article/50/17/9724/6696353#supplementary-data
+
+Additionally, the data employed in this study has been uploaded to Zenodo https://zenodo.org/records/10279295
