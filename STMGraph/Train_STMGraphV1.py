@@ -19,6 +19,10 @@ def train_STMGraphV1(adata, hidden_dims=[512,30], mask_ratio=0.5,noise=0.05, n_e
         AnnData object of scanpy package.
     hidden_dims
         The dimension of the encoder.
+    mask_ratio
+        Masking node proportion.
+    noise
+        The proportion of masked nodes being randomly replaced.
     alpha
         The sce loss function parameters.
     n_epochs
@@ -34,11 +38,11 @@ def train_STMGraphV1(adata, hidden_dims=[512,30], mask_ratio=0.5,noise=0.05, n_e
     weight_decay
         Weight decay for AdamOptimizer.
     save_attention
-        If True, the weights of the attention layers are saved in adata.uns['STAGATE_attention']
+        If True, the weights of the attention layers are saved in adata.uns['STMGraph_attention']
     save_loss
-        If True, the training loss is saved in adata.uns['STAGATE_loss'].
+        If True, the training loss is saved in adata.uns['STMGraph_loss'].
     save_reconstrction
-        If True, the reconstructed expression profiles are saved in adata.layers['STAGATE_ReX'].
+        If True, the reconstructed expression profiles are saved in adata.layers['STMGrpah_ReX'].
 
     Returns
     -------
