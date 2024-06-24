@@ -8,12 +8,12 @@ from sklearn.metrics.cluster import adjusted_rand_score
 import STMGraph as STMGraph
 import argparse
 parser = argparse.ArgumentParser(description='manual to this script')
-parser.add_argument("--random-seed", type=int, default=1)
+parser.add_argument("--random-seed", type=int, default=52)
 parser.add_argument("--num-cluster", type=int, default=7)
-parser.add_argument("--k-cutoff", type=int, default=7)
-parser.add_argument("--alpha", type=int, default=3)
+parser.add_argument("--k-cutoff", type=int, default=13)
+parser.add_argument("--alpha", type=int, default=1)
 parser.add_argument("--input-h5ad", type=str, default="/share/home/stu_qilin/project/jupyter/paste-test/merge_adata2.h5ad")
-parser.add_argument("--output-file", type=str, default="/share/home/stu_qilin/software/STMGraph7/output_paste_test")
+parser.add_argument("--output-file", type=str, default="/share/home/stu_qilin/software/STMGraph/output_paste_test")
 args = parser.parse_args()
 
 r=args.random_seed
