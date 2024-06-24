@@ -8,12 +8,12 @@ from sklearn.metrics.cluster import adjusted_rand_score
 import STMGraph as STMGraph
 import argparse
 parser = argparse.ArgumentParser(description='manual to this script')
-parser.add_argument("--random-seed", type=int, default=1)
+parser.add_argument("--random-seed", type=int, default=52)
 parser.add_argument("--num-cluster", type=int, default=7)
-parser.add_argument("--input-ground-true", type=str, default="/share/home/stu_qilin/project/HumanPilot-master/outputs/SpatialDE_clustering/cluster_labels_151673.csv")
-parser.add_argument("--input-dir", type=str, default="/share/home/stu_qilin/project/jupyter/data/test_data/10X/151673")
-parser.add_argument("--count-file", type=str, default="/share/home/stu_qilin/project/jupyter/data/test_data/10X/151673/151673_filtered_feature_bc_matrix.h5")
-parser.add_argument("--output-file", type=str, default="/share/home/stu_qilin/software/stgatev2_file/output_151673/")
+parser.add_argument("--input-ground-true", type=str, default="/share/home/stu_qilin/project/HumanPilot-master/outputs/SpatialDE_clustering/cluster_labels_151674.csv")
+parser.add_argument("--input-dir", type=str, default="/share/home/stu_qilin/project/jupyter/data/test_data/10X/151674")
+parser.add_argument("--count-file", type=str, default="/share/home/stu_qilin/project/jupyter/data/test_data/10X/151674/151674_filtered_feature_bc_matrix.h5")
+parser.add_argument("--output-file", type=str, default="/share/home/stu_qilin/software/STMGrpah/output_151674/")
 args = parser.parse_args()
 
 r=args.random_seed
