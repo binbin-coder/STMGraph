@@ -17,6 +17,9 @@ conda env create -f environment.yaml
 pip install STMGraph
 
 ## spatial domain clustering
+python test_cluster.py
 ## batch-effects correction
 ## microenvironmental heterogeneity detecting
+python microenvironmental_heterogeneity.py
 ## gene denoising
+python test_denoising.py
