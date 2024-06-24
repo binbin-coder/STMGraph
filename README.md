@@ -19,6 +19,7 @@ pip install STMGraph
 ## spatial domain clustering
 python test_cluster.py
 ## batch-effects correction
+python test_alignment_data3456.py
 ## microenvironmental heterogeneity detecting
 python microenvironmental_heterogeneity.py
 ## gene denoising
