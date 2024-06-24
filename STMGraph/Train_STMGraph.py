@@ -19,6 +19,10 @@ def train_STMGraph(adata, hidden_dims=[512,30], mask_ratio=0.5,noise=0.05, n_epo
         AnnData object of scanpy package.
     hidden_dims
         The dimension of the encoder.
+    mask_ratio
+        Masking node proportion.
+    noise
+        The proportion of masked nodes being randomly replaced.
     alpha
         The sce loss function parameters.
     n_epochs
