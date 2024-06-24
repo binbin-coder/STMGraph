@@ -30,7 +30,7 @@ The datasets used in this paper can be downloaded from the following websites. S
 
 (1) The LIBD human dorsolateral prefrontal cortex (DLPFC) dataset http://spatial.libd.org/spatialLIBD
 
-(2) the processed Mouse posterior brain https://support.10xgenomics.com/spatial-gene-expression/datasets
+(2) the processed Mouse brain https://www.10xgenomics.com/datasets/adult-mouse-brain-section-1-coronal-stains-dapi-anti-neu-n-1-standard-1-1-0
 
 (3) 10x Visium spatial transcriptomics dataset of Orchid flower Slide 1 https://academic.oup.com/nar/article/50/17/9724/6696353#supplementary-data
 
