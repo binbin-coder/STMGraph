@@ -6,7 +6,7 @@
 
 ## Software dependencies
 numpy==1.21.5  
-r-base==3.5.0  
+r-base==3.5.1  
 r-mclust==5.4.6  
 rpy2==3.1.0  
 tensorflow==1.15.0  
