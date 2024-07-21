@@ -8,7 +8,7 @@ from sklearn.metrics.cluster import adjusted_rand_score
 import STMGraph as STMGraph
 import argparse
 parser = argparse.ArgumentParser(description='manual to this script')
-parser.add_argument("--random-seed", type=int, default=100)
+parser.add_argument("--random-seed", type=int, default=52)
 parser.add_argument("--input-expression",type=str, default="/share/home/stu_qilin/software/stdata/6.Mouse_Hippocampus_Tissue/Puck_200115_08.digital_expression.txt")
 parser.add_argument("--input-locations",type=str, default="/share/home/stu_qilin/software/stdata/6.Mouse_Hippocampus_Tissue/Puck_200115_08_bead_locations.csv")
 parser.add_argument("--input-used-barcode",type=str, default="/share/home/stu_qilin/software/stdata/6.Mouse_Hippocampus_Tissue/used_barcodes.csv")
