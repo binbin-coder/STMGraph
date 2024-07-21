@@ -8,7 +8,7 @@ from sklearn.metrics.cluster import adjusted_rand_score
 import STMGraph as STMGraph
 import argparse
 parser = argparse.ArgumentParser(description='manual to this script')
-parser.add_argument("--random-seed", type=int, default=1)
+parser.add_argument("--random-seed", type=int, default=52)
 parser.add_argument("--num-cluster", type=int, default=7)
 parser.add_argument("--input-ground-true", type=str, default="/share/home/stu_qilin/project/HumanPilot-master/outputs/SpatialDE_clustering/cluster_labels_151673.csv")
 parser.add_argument("--input-dir", type=str, default="/share/home/stu_qilin/project/jupyter/data/test_data/10X/151673")
