@@ -17,7 +17,12 @@ conda env create -f environment.yaml
 pip install STMGraph
 
 ## spatial domain clustering
+### DLPFC dataset
 python test_cluster.py
+### Human breast cancer
+python test_Breast_Cancer.py
+### Mouse embryo.py
+python test_Mouse_embryo.py
 ## batch-effects correction
 python test_alignment_data3456.py
 ## microenvironmental heterogeneity detecting
