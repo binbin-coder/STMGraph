@@ -21,7 +21,7 @@ pip install STMGraph
 python test_cluster.py
 ### Human breast cancer
 python test_Breast_Cancer.py
-### Mouse embryo.py
+### Mouse embryo
 python test_Mouse_embryo.py
 ## batch-effects correction
 python test_alignment_data3456.py
