@@ -29,7 +29,7 @@ sc.pp.highly_variable_genes(adata, flavor="seurat_v3", n_top_genes=3000)
 sc.pp.normalize_total(adata, target_sum=1e4)
 sc.pp.log1p(adata)
 
-STMGraph.Cal_Spatial_Net(adata, k_cutoff=6, model='KNN', delta_err=0.4)
+STMGraph.Cal_Spatial_Net(adata, k_cutoff=8, model='KNN', delta_err=0.4)
 STMGraph.Stats_Spatial_Net(adata)
 
 adata = STMGraph.train_STMGraph(adata, mask_ratio=0.5,alpha=1,random_seed=int(r))
