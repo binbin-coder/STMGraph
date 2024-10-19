@@ -8,11 +8,11 @@ from sklearn.metrics.cluster import adjusted_rand_score
 import STMGraph as STMGraph
 import argparse
 parser = argparse.ArgumentParser(description='manual to this script')
-parser.add_argument("--random-seed", type=int, default=52)
-parser.add_argument("--input-expression",type=str, default="/share/home/stu_qilin/software/stdata/6.Mouse_Hippocampus_Tissue/Puck_200115_08.digital_expression.txt")
-parser.add_argument("--input-locations",type=str, default="/share/home/stu_qilin/software/stdata/6.Mouse_Hippocampus_Tissue/Puck_200115_08_bead_locations.csv")
-parser.add_argument("--input-used-barcode",type=str, default="/share/home/stu_qilin/software/stdata/6.Mouse_Hippocampus_Tissue/used_barcodes.csv")
-parser.add_argument("--output-dir", type=str, default="/share/home/stu_qilin/software/STMGraph7/output_mouse_Hippocampus_Slide")
+parser.add_argument("--random-seed", type=int, default=52, help="Random seed for reproducibility")
+parser.add_argument("--input-expression",type=str, default="/share/home/stu_qilin/software/stdata/6.Mouse_Hippocampus_Tissue/Puck_200115_08.digital_expression.txt", help="Path to the count file")
+parser.add_argument("--input-locations",type=str, default="/share/home/stu_qilin/software/stdata/6.Mouse_Hippocampus_Tissue/Puck_200115_08_bead_locations.csv", help="Space coordinate file")
+parser.add_argument("--input-used-barcode",type=str, default="/share/home/stu_qilin/software/stdata/6.Mouse_Hippocampus_Tissue/used_barcodes.csv", help="Available barcode")
+parser.add_argument("--output-dir", type=str, default="/share/home/stu_qilin/software/STMGraph7/output_mouse_Hippocampus_Slide", help="Directory path for output files")
 args = parser.parse_args()
 r=args.random_seed
 counts_file = args.input_expression
