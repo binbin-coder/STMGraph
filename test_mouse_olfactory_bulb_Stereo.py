@@ -67,7 +67,7 @@ STMGraph.Cal_Spatial_Net(adata, rad_cutoff=50)
 # STAGATEV2.Stats_Spatial_Net(adata)
 
 adata = STMGraph.train_STMGraph(adata, mask_ratio=0.5,noise=0.05, alpha=1, random_seed=int(r),n_epochs=1500)
-adata = STMGraph.mclust_R(adata, used_obsm='STMGraph', num_cluster=7,random_seed=int(r))
+adata = STMGraph.mclust_R(adata, used_obsm='STMGraph', num_cluster=num_cluster,random_seed=int(r))
 # adata.obsm["spatial"] = adata.obsm["spatial"] * (-1)
 
 # adata.obsm['spatial'][:, 1] = -1*adata.obsm['spatial'][:, 1]
