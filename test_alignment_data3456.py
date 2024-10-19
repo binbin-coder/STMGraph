@@ -8,12 +8,12 @@ from sklearn.metrics.cluster import adjusted_rand_score
 import STMGraph as STMGraph
 import argparse
 parser = argparse.ArgumentParser(description='manual to this script')
-parser.add_argument("--random-seed", type=int, default=52)
-parser.add_argument("--num-cluster", type=int, default=7)
-parser.add_argument("--k-cutoff", type=int, default=13)
-parser.add_argument("--alpha", type=int, default=1)
-parser.add_argument("--input-h5ad", type=str, default="/share/home/stu_qilin/project/jupyter/paste-test/merge_adata2.h5ad")
-parser.add_argument("--output-file", type=str, default="/share/home/stu_qilin/software/STMGraph/output_paste_test")
+parser.add_argument("--random-seed", type=int, default=52, help="Random seed for reproducibility")
+parser.add_argument("--num-cluster", type=int, default=7, help="Number of clusters to form")
+parser.add_argument("--k-cutoff", type=int, default=13, help="SNG Maximum number of overwritten neighbors")
+parser.add_argument("--alpha", type=int, default=1, help="scaling factors in loss function")
+parser.add_argument("--input-h5ad", type=str, default="/share/home/stu_qilin/project/jupyter/paste-test/merge_adata2.h5ad", help="Path to the count file")
+parser.add_argument("--output-file", type=str, default="/share/home/stu_qilin/software/STMGraph/output_paste_test", help="Directory path for output files")
 args = parser.parse_args()
 
 r=args.random_seed
