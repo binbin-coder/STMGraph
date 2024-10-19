@@ -8,10 +8,10 @@ from sklearn.metrics.cluster import adjusted_rand_score
 import STMGraph as STMGraph
 import argparse
 parser = argparse.ArgumentParser(description='manual to this script')
-parser.add_argument("--random-seed", type=int, default=52)
-parser.add_argument("--input-dir", type=str, default="/share/home/stu_qilin/project/jupyter/data/test_data/10X/151674")
-parser.add_argument("--count-file", type=str, default="/share/home/stu_qilin/project/jupyter/data/test_data/10X/151674/151674_filtered_feature_bc_matrix.h5")
-parser.add_argument("--output-file", type=str, default="/share/home/stu_qilin/software/STMGraph/output_151674/")
+parser.add_argument("--random-seed", type=int, default=52, help="Random seed for reproducibility")
+parser.add_argument("--input-dir", type=str, default="/share/home/stu_qilin/project/jupyter/data/test_data/10X/151674", help="Directory path for input data")
+parser.add_argument("--count-file", type=str, default="/share/home/stu_qilin/project/jupyter/data/test_data/10X/151674/151674_filtered_feature_bc_matrix.h5", help="Path to the count file")
+parser.add_argument("--output-file", type=str, default="/share/home/stu_qilin/software/STMGraph/output_151674/", help="Directory path for output files")
 args = parser.parse_args()
 
 r=args.random_seed
