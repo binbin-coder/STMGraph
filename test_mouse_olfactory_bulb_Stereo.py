@@ -9,6 +9,7 @@ import STMGraph
 import argparse
 parser = argparse.ArgumentParser(description='manual to this script')
 parser.add_argument("--random-seed", type=int, default=52, help="Random seed for reproducibility")
+parser.add_argument("--num-cluster", type=int, default=7, help="Number of clusters to form")
 parser.add_argument("--input-expression",type=str, default="/share/home/stu_qilin/software/stdata/5.Mouse_Olfactory/Slide-seqV2_mouse_olfactory_bulb/Puck_200127_15.digital_expression.txt", help="Path to the count file")
 parser.add_argument("--input-locations",type=str, default="/share/home/stu_qilin/software/stdata/5.Mouse_Olfactory/Slide-seqV2_mouse_olfactory_bulb/Puck_200127_15_bead_locations.csv", help="Space coordinate file")
 parser.add_argument("--input-used-barcode",type=str, default="/share/home/stu_qilin/software/stdata/5.Mouse_Olfactory/Slide-seqV2_mouse_olfactory_bulb/used_barcodes.txt", help="Available barcode")
@@ -19,6 +20,7 @@ counts_file = args.input_expression
 coor_file = args.input_locations
 input_used_barcode=args.input_used_barcode
 output_dir = args.output_dir
+num_cluster=args.num_cluster
 counts = pd.read_table(counts_file, sep='\t', index_col=0)
 coor_df = pd.read_csv(coor_file, sep='\t')
 
@@ -53,7 +55,7 @@ plt.close()
 
 adata.var["mt"] = adata.var_names.str.startswith("mt-")
 adata.var["ercc"] = adata.var_names.str.startswith("ercc-")
-adata = adata[:, ~(adata.var["mt"] | adata.var["ercc"])]#删除线粒体和外源基因
+adata = adata[:, ~(adata.var["mt"] | adata.var["ercc"])]
 
 sc.pp.filter_genes(adata, min_cells=3)
 sc.pp.highly_variable_genes(adata, flavor="seurat_v3", n_top_genes=6000)
