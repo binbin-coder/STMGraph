@@ -24,8 +24,8 @@ python test_Breast_Cancer.py
 ### Mouse embryo
 python test_Mouse_embryo.py
 ### dataset of mouse olfactory bulb (MOB) from Stereo-seq, Slide-seqV2
-python test_mouse_olfactory_bulb_Stereo.py
-python test_mouse_olfactory_bulb_Slide.py
+python test_mouse_olfactory_bulb_Stereo.py  
+python test_mouse_olfactory_bulb_Slide.py  
 ## batch-effects correction
 python test_alignment_data3456.py
 ## microenvironmental heterogeneity detecting
