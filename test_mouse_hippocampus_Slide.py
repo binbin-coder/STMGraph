@@ -9,7 +9,7 @@ import STMGraph as STMGraph
 import argparse
 parser = argparse.ArgumentParser(description='manual to this script')
 parser.add_argument("--random-seed", type=int, default=52, help="Random seed for reproducibility")
-parser.add_argument("--num-cluster", type=int, default=20, help="Number of clusters to form")
+parser.add_argument("--num-cluster", type=int, default=10, help="Number of clusters to form")
 parser.add_argument("--input-expression",type=str, default="/share/home/stu_qilin/software/stdata/6.Mouse_Hippocampus_Tissue/Puck_200115_08.digital_expression.txt", help="Path to the count file")
 parser.add_argument("--input-locations",type=str, default="/share/home/stu_qilin/software/stdata/6.Mouse_Hippocampus_Tissue/Puck_200115_08_bead_locations.csv", help="Space coordinate file")
 parser.add_argument("--input-used-barcode",type=str, default="/share/home/stu_qilin/software/stdata/6.Mouse_Hippocampus_Tissue/used_barcodes.csv", help="Available barcode")
