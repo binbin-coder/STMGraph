@@ -8,10 +8,10 @@ from sklearn.metrics.cluster import adjusted_rand_score
 import STMGraph
 import argparse
 parser = argparse.ArgumentParser(description='manual to this script')
-parser.add_argument("--random-seed", type=int, default=1)
-parser.add_argument("--num-cluster", type=int, default=7)
-parser.add_argument("--input-file", type=str, default="/share/home/stu_qilin/project/jupyter/data/test_data/10X/151673")
-parser.add_argument("--output-file", type=str, default="/share/home/stu_qilin/software/stgatev2_file/output_151673/")
+parser.add_argument("--random-seed", type=int, default=1, help="Random seed for reproducibility")
+parser.add_argument("--num-cluster", type=int, default=7, help="Number of clusters to form")
+parser.add_argument("--input-file", type=str, default="/share/home/stu_qilin/project/jupyter/data/test_data/10X/151673", help="Directory path for input data")
+parser.add_argument("--output-file", type=str, default="/share/home/stu_qilin/software/stgatev2_file/output_151673/", help="Directory path for output files")
 args = parser.parse_args()
 
 r=args.random_seed
