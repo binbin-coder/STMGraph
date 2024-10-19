@@ -16,6 +16,28 @@ scanpy==1.9.1
 conda env create -f environment.yaml  
 pip install STMGraph
 
+## Usage
+python test_cluster.py [-h] --random-seed RANDOM_SEED --num-cluster NUM_CLUSTER  
+                --input-ground-true INPUT_GROUND_TRUE --input-dir INPUT_DIR  
+                --count-file COUNT_FILE --output-file OUTPUT_FILE  
+
+manual to this script  
+
+optional arguments:  
+  -h, --help            show this help message and exit  
+  --random-seed RANDOM_SEED  
+                        Random seed for reproducibility  
+  --num-cluster NUM_CLUSTER  
+                        Number of clusters to form  
+  --input-ground-true INPUT_GROUND_TRUE  
+                        Path to the input ground truth file  
+  --input-dir INPUT_DIR  
+                        Directory path for input data  
+  --count-file COUNT_FILE  
+                        Path to the count file  
+  --output-file OUTPUT_FILE  
+                        Directory path for output files  
+
 ## spatial domain clustering
 ### DLPFC dataset
 python test_cluster.py
