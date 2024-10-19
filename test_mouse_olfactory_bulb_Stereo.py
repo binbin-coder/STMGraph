@@ -8,11 +8,11 @@ from sklearn.metrics.cluster import adjusted_rand_score
 import STMGraph
 import argparse
 parser = argparse.ArgumentParser(description='manual to this script')
-parser.add_argument("--random-seed", type=int, default=52)
-parser.add_argument("--input-expression",type=str, default="/share/home/stu_qilin/software/stdata/5.Mouse_Olfactory/Slide-seqV2_mouse_olfactory_bulb/Puck_200127_15.digital_expression.txt")
-parser.add_argument("--input-locations",type=str, default="/share/home/stu_qilin/software/stdata/5.Mouse_Olfactory/Slide-seqV2_mouse_olfactory_bulb/Puck_200127_15_bead_locations.csv")
-parser.add_argument("--input-used-barcode",type=str, default="/share/home/stu_qilin/software/stdata/5.Mouse_Olfactory/Slide-seqV2_mouse_olfactory_bulb/used_barcodes.txt")
-parser.add_argument("--output-dir", type=str, default="/share/home/stu_qilin/software/DGAST/output_mouse_olfactory_bulb_Slide")
+parser.add_argument("--random-seed", type=int, default=52, help="Random seed for reproducibility")
+parser.add_argument("--input-expression",type=str, default="/share/home/stu_qilin/software/stdata/5.Mouse_Olfactory/Slide-seqV2_mouse_olfactory_bulb/Puck_200127_15.digital_expression.txt", help="Path to the count file")
+parser.add_argument("--input-locations",type=str, default="/share/home/stu_qilin/software/stdata/5.Mouse_Olfactory/Slide-seqV2_mouse_olfactory_bulb/Puck_200127_15_bead_locations.csv", help="Space coordinate file")
+parser.add_argument("--input-used-barcode",type=str, default="/share/home/stu_qilin/software/stdata/5.Mouse_Olfactory/Slide-seqV2_mouse_olfactory_bulb/used_barcodes.txt", help="Available barcode")
+parser.add_argument("--output-dir", type=str, default="/share/home/stu_qilin/software/DGAST/output_mouse_olfactory_bulb_Slide", help="Directory path for output files")
 args = parser.parse_args()
 r=args.random_seed
 counts_file = args.input_expression
