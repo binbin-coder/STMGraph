@@ -10,6 +10,7 @@ import argparse
 parser = argparse.ArgumentParser(description='manual to this script')
 parser.add_argument("--random-seed", type=int, default=1, help="Random seed for reproducibility")
 parser.add_argument("--num-cluster", type=int, default=7, help="Number of clusters to form")
+parser.add_argument("--k-cutoff", type=int, default=8, help="SNG Maximum number of overwritten neighbors")
 parser.add_argument("--input-file", type=str, default="/share/home/stu_qilin/project/jupyter/data/test_data/10X/151673", help="Directory path for input data")
 parser.add_argument("--output-file", type=str, default="/share/home/stu_qilin/software/stgatev2_file/output_151673/", help="Directory path for output files")
 args = parser.parse_args()
@@ -18,6 +19,7 @@ r=args.random_seed
 input_file=args.input_file
 output_file=args.output_file
 num_cluster=args.num_cluster
+k=args.k_cutoff
 adata = sc.read(filename =input_file)
 
 # Normalization
@@ -29,7 +31,7 @@ sc.pp.highly_variable_genes(adata, flavor="seurat_v3", n_top_genes=3000)
 sc.pp.normalize_total(adata, target_sum=1e4)
 sc.pp.log1p(adata)
 
-STMGraph.Cal_Spatial_Net(adata, k_cutoff=8, model='KNN', delta_err=0.4)
+STMGraph.Cal_Spatial_Net(adata, k_cutoff=int(k), model='KNN', delta_err=0.4)
 STMGraph.Stats_Spatial_Net(adata)
 
 adata = STMGraph.train_STMGraph(adata, mask_ratio=0.5,alpha=1,random_seed=int(r))
