@@ -10,6 +10,7 @@ import argparse
 parser = argparse.ArgumentParser(description='manual to this script')
 parser.add_argument("--random-seed", type=int, default=52, help="Random seed for reproducibility")
 parser.add_argument("--num-cluster", type=int, default=7, help="Number of clusters to form")
+parser.add_argument("--k-cutoff", type=int, default=6, help="SNG Maximum number of overwritten neighbors")
 parser.add_argument("--input-ground-true", type=str, default="/share/home/stu_qilin/project/HumanPilot-master/outputs/SpatialDE_clustering/cluster_labels_151673.csv", help="Path to the input ground truth file")
 parser.add_argument("--input-dir", type=str, default="/share/home/stu_qilin/project/jupyter/data/test_data/10X/151673", help="Directory path for input data", help="Directory path for input data")
 parser.add_argument("--count-file", type=str, default="/share/home/stu_qilin/project/jupyter/data/test_data/10X/151673/151673_filtered_feature_bc_matrix.h5", help="Path to the count file")
@@ -22,6 +23,7 @@ input_dir=args.input_dir
 count_file=args.count_file
 output_file=args.output_file
 num_cluster=args.num_cluster
+k=args.k_cutoff
 adata = sc.read_visium(path=input_dir, count_file=count_file)
 adata.var_names_make_unique()
 
@@ -38,7 +40,7 @@ cluser=pd.read_csv(input_ground_true,sep=",")
 adata.obs['Ground Truth']=cluser.loc[:,'ground_truth'].to_list()
 
 # STMGraph.Cal_Spatial_Net(adata, rad_cutoff=150)
-STMGraph.Cal_Spatial_Net(adata, k_cutoff=6, model='KNN')
+STMGraph.Cal_Spatial_Net(adata, k_cutoff=int(k), model='KNN')
 STMGraph.Stats_Spatial_Net(adata)
 
 adata = STMGraph.train_STMGraph(adata, mask_ratio=0.0,alpha=1, random_seed=int(r))
