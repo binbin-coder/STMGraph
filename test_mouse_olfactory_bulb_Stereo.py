@@ -22,7 +22,7 @@ coor_file = args.input_locations
 input_used_barcode=args.input_used_barcode
 output_dir = args.output_dir
 num_cluster=args.num_cluster
-r=args.rad_cutoff
+rad=args.rad_cutoff
 counts = pd.read_table(counts_file, sep='\t', index_col=0)
 coor_df = pd.read_csv(coor_file, sep='\t')
 
@@ -64,7 +64,7 @@ sc.pp.highly_variable_genes(adata, flavor="seurat_v3", n_top_genes=6000)
 sc.pp.normalize_total(adata, target_sum=1e4)
 sc.pp.log1p(adata)
 
-STMGraph.Cal_Spatial_Net(adata, rad_cutoff=int(r))
+STMGraph.Cal_Spatial_Net(adata, rad_cutoff=int(rad))
 # STAGATEV2.Cal_Spatial_Net(adata, model="KNN",k_cutoff=12)
 # STAGATEV2.Stats_Spatial_Net(adata)
 
