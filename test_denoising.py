@@ -9,6 +9,7 @@ import STMGraph as STMGraph
 import argparse
 parser = argparse.ArgumentParser(description='manual to this script')
 parser.add_argument("--random-seed", type=int, default=52, help="Random seed for reproducibility")
+parser.add_argument("--k-cutoff", type=int, default=6, help="SNG Maximum number of overwritten neighbors")
 parser.add_argument("--input-dir", type=str, default="/share/home/stu_qilin/project/jupyter/data/test_data/10X/151674", help="Directory path for input data")
 parser.add_argument("--count-file", type=str, default="/share/home/stu_qilin/project/jupyter/data/test_data/10X/151674/151674_filtered_feature_bc_matrix.h5", help="Path to the count file")
 parser.add_argument("--output-file", type=str, default="/share/home/stu_qilin/software/STMGraph/output_151674/", help="Directory path for output files")
@@ -18,6 +19,7 @@ r=args.random_seed
 input_dir=args.input_dir
 count_file=args.count_file
 output_file=args.output_file
+k=args.k_cutoff
 adata = sc.read_visium(path=input_dir, count_file=count_file)
 adata.var_names_make_unique()
 
@@ -29,7 +31,7 @@ sc.pp.filter_genes(adata, min_cells=3)
 sc.pp.normalize_total(adata, target_sum=1e4)
 sc.pp.log1p(adata)
 
-STMGraph.Cal_Spatial_Net(adata,  k_cutoff=6, model='KNN')
+STMGraph.Cal_Spatial_Net(adata,  k_cutoff=int(k), model='KNN')
 STMGraph.Stats_Spatial_Net(adata)
 adata = STMGraph.train_STMGraph(adata, mask_ratio=0.5,alpha=1, random_seed=int(r))
 
