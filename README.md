@@ -35,7 +35,7 @@ pip install STMGraph
 
 ## Usage
 Parameters  
-For more information, run python script.py --help
+For more information, run python text_*.py --help
 
 ## Download test datasets used in STMGraph:
 The datasets used in this paper can be downloaded from the following websites. Specifically,
