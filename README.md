@@ -18,20 +18,20 @@ pip install STMGraph
 
 ## spatial domain clustering
 ### DLPFC dataset
-python test_cluster.py
+```python test_cluster.py```
 ### Human breast cancer
-python test_Breast_Cancer.py
+```python test_Breast_Cancer.py```
 ### Mouse embryo
-python test_Mouse_embryo.py
+```python test_Mouse_embryo.py```
 ### dataset of mouse olfactory bulb (MOB) from Stereo-seq, Slide-seqV2
-python test_mouse_olfactory_bulb_Stereo.py  
-python test_mouse_olfactory_bulb_Slide.py  
+```python test_mouse_olfactory_bulb_Stereo.py```  
+```python test_mouse_olfactory_bulb_Slide.py```  
 ## batch-effects correction
-python test_alignment_data3456.py
+```python test_alignment_data3456.py```
 ## microenvironmental heterogeneity detecting
-python microenvironmental_heterogeneity.py
+```python microenvironmental_heterogeneity.py```
 ## gene denoising
-python test_denoising.py
+```python test_denoising.py```
 
 ## Usage
 Parameters  
