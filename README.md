@@ -21,6 +21,8 @@ pip install STMGraph
 ```python test_cluster.py```
 ### Human breast cancer
 ```python test_Breast_Cancer.py```
+### Mouse Brain Anterior
+```python test_Mouse_Brain_Anterior.py```
 ### Mouse embryo
 ```python test_Mouse_embryo.py```
 ### dataset of mouse olfactory bulb (MOB) from Stereo-seq, Slide-seqV2
