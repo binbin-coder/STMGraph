@@ -29,10 +29,10 @@ pip install STMGraph
 ```python test_mouse_olfactory_bulb_Stereo.py```  
 ```python test_mouse_olfactory_bulb_Slide.py```  
 ## batch-effects correction
-```python test_alignment_data3456.py```
+```python test_alignment_data3456.py``` 
 ```data download from https://drive.google.com/drive/folders/1R0-jDzQ4Dk2Kb6Vy5E74gaGHClnQhJMw```
 ## microenvironmental heterogeneity detecting
-```python microenvironmental_heterogeneity.py```
+```python microenvironmental_heterogeneity.py``` 
 ## gene denoising
 ```python test_denoising.py```
 
