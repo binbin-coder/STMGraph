@@ -47,5 +47,7 @@ The datasets used in this paper can be downloaded from the following websites. S
 
 (2) the processed Mouse brain https://www.10xgenomics.com/datasets/adult-mouse-brain-section-1-coronal-stains-dapi-anti-neu-n-1-standard-1-1-0
 
-(3) 10x Visium spatial transcriptomics dataset of Orchid flower Slide 1 https://academic.oup.com/nar/article/50/17/9724/6696353#supplementary-data
+(3) 10x Visium spatial transcriptomics dataset of Orchid flower Slide 1 https://academic.oup.com/nar/article/50/17/9724/6696353#supplementary-data  
 
+## Contact
+Feel free to submit an issue or contact us at llx_1910@163.com for problems about the packages.
